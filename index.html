@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Creative Solutions for Boredom</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* ====== RESET ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top, #f7fbff 0%, #d9ecff 30%, #0b1935 100%);
+            color: #0b1020;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+        }
+
+        /* ====== LAYOUT ====== */
+        .poster {
+            max-width: 960px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 24px;
+            padding: 28px 24px 32px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poster::before {
+            content: "";
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255, 230, 130, 0.7);
+            top: -80px;
+            right: -60px;
+            filter: blur(6px);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .poster::after {
+            content: "";
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: rgba(120, 190, 255, 0.6);
+            bottom: -120px;
+            left: -80px;
+            filter: blur(8px);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ====== HEADER ====== */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(11, 25, 53, 0.07);
+            border-radius: 999px;
+            padding: 4px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #36405f;
+            margin-bottom: 10px;
+        }
+
+        .badge span {
+            font-size: 16px;
+        }
+
+        .hero {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 22px;
+            align-items: center;
+            margin-bottom: 26px;
+        }
+
+        .hero-text {
+            flex: 1 1 260px;
+        }
+
+        .hero-title {
+            font-size: clamp(26px, 4vw, 34px);
+            line-height: 1.1;
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.07em;
+            color: #0b1935;
+            margin-bottom: 10px;
+        }
+
+        .hero-title span {
+            display: block;
+            color: #f25c3c;
+        }
+
+        .hero-text p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #414b66;
+        }
+
+        .hero-side {
+            flex: 1 1 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #0b1935, #25345c);
+            color: #ffffff;
+            padding: 12px 14px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .highlight-box strong {
+            color: #ffe58a;
+        }
+
+        .tip-dynamic {
+            font-size: 14px;
+            line-height: 1.5;
+            background: rgba(11, 25, 53, 0.05);
+            padding: 10px 12px;
+            border-radius: 16px;
+        }
+
+        .tip-dynamic strong {
+            color: #0b1935;
+        }
+
+        .btn-random {
+            margin-top: 6px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: none;
+            background: #f25c3c;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.15s ease;
+            box-shadow: 0 8px 18px rgba(242, 92, 60, 0.35);
+        }
+
+        .btn-random:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 26px rgba(242, 92, 60, 0.45);
+            background: #ff6f4d;
+        }
+
+        .btn-random:active {
+            transform: translateY(1px);
+            box-shadow: 0 5px 14px rgba(242, 92, 60, 0.35);
+        }
+
+        /* ====== GRID OF IDEAS ====== */
+        .section-title {
+            margin: 4px 0 12px;
+            font-size: 16px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #848fa9;
+            font-weight: 700;
+        }
+
+        .ideas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .idea-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 18px;
+            padding: 14px 14px 16px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(11, 25, 53, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            transform: translateY(0);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.2s ease;
+        }
+
+        .idea-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+            border-color: rgba(242, 92, 60, 0.5);
+        }
+
+        .idea-icon {
+            font-size: 20px;
+        }
+
+        .idea-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: #0b1935;
+        }
+
+        .idea-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #505a75;
+        }
+
+        /* ====== GOOD vs BAD ====== */
+        .boredom-row {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 16px;
+            margin-top: 4px;
+            margin-bottom: 8px;
+        }
+
+        .good-box, .bad-box {
+            border-radius: 18px;
+            padding: 12px 14px 14px;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .good-box {
+            background: rgba(86, 206, 145, 0.12);
+            border: 1px solid rgba(53, 163, 110, 0.5);
+            color: #135338;
+        }
+
+        .bad-box {
+            background: rgba(255, 137, 137, 0.12);
+            border: 1px solid rgba(215, 92, 92, 0.6);
+            color: #7b2525;
+        }
+
+        .good-box strong, .bad-box strong {
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 11px;
+            display: inline-block;
+            margin-bottom: 4px;
+        }
+
+        ul {
+            padding-left: 18px;
+            margin-top: 4px;
+        }
+
+        li {
+            margin-bottom: 4px;
+        }
+
+        /* ====== FOOTER ====== */
+        .footer {
+            margin-top: 8px;
+            font-size: 11px;
+            text-align: right;
+            color: #7c849b;
+        }
+
+        .footer span {
+            font-weight: 600;
+            color: #4a5670;
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 800px) {
+            body {
+                padding: 16px;
+            }
+
+            .poster {
+                padding: 22px 18px 26px;
+            }
+
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .ideas-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .boredom-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .ideas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .badge {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="poster">
+    <div class="content">
+        <!-- HEADER -->
+        <div class="badge">
+            <span>💡</span> LESSON 8B · CREATIVE SOLUTIONS
+        </div>
+
+        <header class="hero">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    THE TRUTH ABOUT<br>
+                    <span>CREATIVE BOREDOM</span>
+                </h1>
+                <p>
+                    We usually hate feeling bored, especially at work or during long days. However, researchers say that
+                    a little boredom can actually help our creativity. When our mind is not full of messages, videos,
+                    and notifications, it has space to play with new ideas. This poster gives you practical and creative
+                    things to do the next time you say, <em>“I’m bored.”</em>
+                </p>
+            </div>
+
+            <div class="hero-side">
+                <div class="highlight-box">
+                    <strong>KEY IDEA:</strong> Simple, boring activities can give your brain time to explore new
+                    connections. When you are not focused on a screen, your imagination can start working in the
+                    background.
+                </div>
+
+                <div class="tip-dynamic" id="dynamicTip">
+                    <strong>Try this:</strong> Sit quietly for five minutes and just look out of the window. Let your
+                    thoughts move slowly. Do not touch your phone. See what new ideas appear.
+                </div>
+                <button class="btn-random" id="newTipBtn">NEW CREATIVE TIP</button>
+            </div>
+        </header>
+
+        <!-- CREATIVE IDEAS GRID -->
+        <h2 class="section-title">CREATIVE SOLUTIONS WHEN YOU ARE BORED</h2>
+
+        <section class="ideas-grid">
+            <article class="idea-card">
+                <div class="idea-icon">🧽</div>
+                <div class="idea-title">Do a Simple Chore</div>
+                <p class="idea-text">
+                    Wash the dishes, fold clothes, or clean your desk. While your hands are busy with a boring task,
+                    your mind is free to think of new projects, stories, or solutions.
+                </p>
+            </article>
+
+            <article class="idea-card">
+                <div class="idea-icon">✏️</div>
+                <div class="idea-title">Doodle and Transform</div>
+                <p class="idea-text">
+                    Start with random lines or shapes on a page. Then turn them into objects, characters, or ideas for
+                    designs. One silly doodle can become the beginning of a creative plan.
+                </p>
+            </article>
+
+            <article class="idea-card">
+                <div class="idea-icon">🚶‍♂️</div>
+                <div class="idea-title">Walk Without a Screen</div>
+                <p class="idea-text">
+                    Take a short walk without music or social media. Pay attention to colors, sounds, and people. Many
+                    people get their best ideas while they are walking slowly and thinking.
+                </p>
+            </article>
+
+            <article class="idea-card">
+                <div class="idea-icon">📋</div>
+                <div class="idea-title">Create a “Boredom List”</div>
+                <p class="idea-text">
+                    Write a list of small creative actions: new questions, things to draw, topics to research, or people
+                    to call. When you feel bored, choose one item from the list instead of scrolling.
+                </p>
+            </article>
+
+            <article class="idea-card">
+                <div class="idea-icon">📚</div>
+                <div class="idea-title">Read Something Unusual</div>
+                <p class="idea-text">
+                    Pick a short article or book about a topic you never study: science, art, psychology, or history.
+                    Connecting two different subjects often produces original and surprising ideas.
+                </p>
+            </article>
+
+            <article class="idea-card">
+                <div class="idea-icon">🧠</div>
+                <div class="idea-title">Mind-Wandering Minutes</div>
+                <p class="idea-text">
+                    Set a timer for ten minutes and let your mind wander on one question: “How can I improve my day or
+                    my work?” Write down every idea, even the strange ones. Later, choose the best two.
+                </p>
+            </article>
+        </section>
+
+        <!-- GOOD VS BAD BOREDOM -->
+        <div class="boredom-row">
+            <div class="good-box">
+                <strong>GOOD WAYS TO USE BOREDOM</strong>
+                <p>
+                    Use short moments of boredom as a tool. Choose calm, low-energy activities that leave space for your
+                    mind to think:
+                </p>
+                <ul>
+                    <li>Doing repetitive tasks like washing, cleaning, or organizing.</li>
+                    <li>Sitting quietly or looking out of the window without your phone.</li>
+                    <li>Writing down new ideas, dreams, or plans for the future.</li>
+                </ul>
+            </div>
+
+            <div class="bad-box">
+                <strong>BAD WAYS TO BE BORED</strong>
+                <p>
+                    Some habits stop your creativity and only make you feel more tired:
+                </p>
+                <ul>
+                    <li>Endlessly scrolling through social media without a real purpose.</li>
+                    <li>Complaining about boredom but not trying anything different.</li>
+                    <li>Doing nothing for hours and waiting for inspiration to magically appear.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            DIGITAL POSTER · <span>Creative Solutions When You Are Bored</span> · Lesson 8B
+        </div>
+    </div>
+</div>
+
+<script>
+    // Simple JS to change the dynamic tip
+    const tips = [
+        "Choose one boring task, like washing dishes, and use that time to think about a problem you want to solve.",
+        "Take a notebook and write ten silly ideas. Afterwards, look again and pick one that you can actually try.",
+        "Turn off all notifications for fifteen minutes and let your mind follow any idea that appears.",
+        "Look around your room and imagine three new uses for everyday objects. Creativity often starts with small questions.",
+        "Draw your boredom as a cartoon character and invent a short story about how it becomes creative.",
+        "Write a message to your future self explaining one new idea you had while you were bored today."
+    ];
+
+    const dynamicTip = document.getElementById("dynamicTip");
+    const btn = document.getElementById("newTipBtn");
+
+    btn.addEventListener("click", () => {
+        const index = Math.floor(Math.random() * tips.length);
+        dynamicTip.innerHTML = `<strong>Try this:</strong> ${tips[index]}`;
+    });
+</script>
+
+</body>
+</html>
